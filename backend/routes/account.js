@@ -34,6 +34,7 @@ router.get("/balance",authMiddleware,async (req,res)=>{
 router.post("/transfer", authMiddleware, async(req,res)=>{
     
     // Starts the sessions it makes sure only one transaction takes place at a time
+    try{
     const session = await mongoose.startSession()
     session.startTransaction() 
     const {amount, sendTo} = req.body
@@ -86,6 +87,12 @@ router.post("/transfer", authMiddleware, async(req,res)=>{
         msg:"Amount transfered"
 
     })
+    }catch(e){
+        await session.abortTransaction()
+        return res.status(400).json({
+            msg: "something went wrong"
+        })
+    }
 })
 
 
