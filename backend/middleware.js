@@ -5,7 +5,7 @@ const authMiddleware = (req,res,next)=>{
     const authHeader = req.headers.authorization
     // console.log(authHeader)
     if(!authHeader || !authHeader.startsWith('Bearer ')){
-        return res.status(403).json("It does not start with Bearer")
+        return res.status(403).json("token missing or does not  start with Bearer")
     }
     const token = authHeader.split(' ')[1]
     try{

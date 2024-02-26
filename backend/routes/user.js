@@ -24,7 +24,7 @@ router.post("/signup", async(req, res)=>{
     const {success} = signupSchema.safeParse(req.body)
     
     if(!success){
-        return res.json({
+        return res.status(411).json({
             message: "Incorrect inputs"
         })
     }
@@ -34,7 +34,7 @@ router.post("/signup", async(req, res)=>{
     })
 
     if(user){
-        return res.json({
+        return res.status(411).json({
             message: "Email already taken"
         })
     }
@@ -132,7 +132,7 @@ router.put("/",authMiddleware,async(req,res)=>{
 })
 
 
-router.get("/bulk",authMiddleware, async (req,res)=>{
+router.get("/bulk", async (req,res)=>{
     const filter = req.query.filter || ""
     const users = await User.find({
         $or: [{
