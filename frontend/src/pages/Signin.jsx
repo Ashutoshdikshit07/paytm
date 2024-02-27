@@ -21,7 +21,7 @@ export const Signin = ()=>{
                 setErrorMessage("")
             }
             
-            const response = await axios.post("http://192.168.1.2:3000/api/v1/user/signin",{
+            const response = await axios.post("http://localhost:3000/api/v1/user/signin",{
                 username,
                 password
             })
