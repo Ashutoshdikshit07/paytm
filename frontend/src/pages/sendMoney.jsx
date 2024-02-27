@@ -10,8 +10,8 @@ export const SendMoney = ()=>{
     
     return <div className="flex justify-center h-screen bg-gray-100">
         <div className="h-full flex flex-col justify-center">
-            <div className="border h-min text-card-foreground max-w-md p-4 space-y-8 w-96 bg-white shadow-lg rounded-lg">
-                <div className="flex flex-col space-y-1.5 p-6 ">
+            <div className="border h-min text-card-foreground max-w-md p-4 space-y-8 w-96 bg-white rounded-lg shadow-2xl shadow-green-950">
+                <div className="flex flex-col space-y-1.5 p-6  ">
                     <div className="text-3xl font-bold text-center">
                         Send money
                     </div>
@@ -45,7 +45,7 @@ export const SendMoney = ()=>{
                                     }
                                 })
                             }}
-                             className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white"> Initiate Transfer</button>
+                             className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 hover:bg-green-900 text-white"> Initiate Transfer</button>
                         </div>                        
                     </div>
                 </div>
