@@ -21,12 +21,12 @@ router.get("/balance",authMiddleware,async (req,res)=>{
     // If the data is not found return error
     if(!account){
        return res.status(400).send({
-        msg: "not found"
+        message: "not found"
     }) 
     }
     // display the amount. 
     res.status(200).send({
-        msg: "got the balance",
+        message: "got the balance",
         balance: account.balance
     })
 })
@@ -38,10 +38,10 @@ router.post("/transfer", authMiddleware, async(req,res)=>{
     const session = await mongoose.startSession()
     session.startTransaction() 
     const {amount, sendTo} = req.body
-    if(amount == 0){
+    if(amount == 0 || !amount){
         await session.abortTransaction()
         return res.status(400).json({
-            msg:"Amount cant be zero"
+            message:"Amount cant be zero or empty"
         })
     }
     const account = await Account.findOne({
@@ -52,7 +52,7 @@ router.post("/transfer", authMiddleware, async(req,res)=>{
         
         await session.abortTransaction()
         return res.status(400).json({
-            msg:"Insufficient balance"
+            message:"Insufficient balance"
         })
     }
 
@@ -63,7 +63,7 @@ router.post("/transfer", authMiddleware, async(req,res)=>{
     if(!toAccount){
         await session.abortTransaction()
         return res.status(400).json({
-            msg: "Invalid account"
+            message: "Invalid account"
         })
     }
     await Account.updateOne({
@@ -84,13 +84,13 @@ router.post("/transfer", authMiddleware, async(req,res)=>{
     // Commits the transaction once both the update is run successfully.
     await session.commitTransaction()
     res.json({
-        msg:"Amount transfered"
+        message:"Amount transfered"
 
     })
     }catch(e){
         await session.abortTransaction()
         return res.status(400).json({
-            msg: "something went wrong"
+            message: "something went wrong"
         })
     }
 })
