@@ -21,7 +21,7 @@ export const Signin = ()=>{
                 setErrorMessage("")
             }
             
-            const response = await axios.post("http://localhost:3000/api/v1/user/signin",{
+            const response = await axios.post("http://192.168.1.2:3000/api/v1/user/signin",{
                 username,
                 password
             })
@@ -41,7 +41,7 @@ export const Signin = ()=>{
 
         <div className="flex flex-col justify-center">
             <div className="rounded-lg bg-white w-80 text-center p-2 h-max shadow-2xl shadow-slate-950">
-                <div className="text-red-600 font-mono text-lg antialiased hover:subpixel-antialiased font-semibold">
+                <div className="text-red-600 text-center font-mono text-lg antialiased hover:subpixel-antialiased font-semibold">
                     {errorMessage}
                 </div>
                 <Heading label={"Sign in"} />
