@@ -8,49 +8,41 @@ export const SendMoney = ()=>{
     const [searchParams] = useSearchParams()
     const id = searchParams.get("id")
     const name = searchParams.get("name")
-    const [errorMessage,setErrorMessage] = useState("")
+    const [message,setMessage] = useState("")
     
     const handleTransfer= async() =>{
         try{
-           
-                setErrorMessage("")
-    
-            await axios.post("http://192.168.1.2:3000/api/v1/account/transfer",{
+
+            await axios.post("http://localhost:3000/api/v1/account/transfer",{
                 amount,
                 sendTo:id
             },{
                 headers:{
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
-                
+            
             })
+            setMessage({message:"Amount transfered successfuly",color:'green'})
         }catch(e){
-            if(e.response && e.response.data && e.response.data.message){
-                setErrorMessage(e.response.data.message)
+            if(e.response.data.message){
+                setMessage({message:e.response.data.message,color:'red'})
             }
             else{
-                setErrorMessage("An error occured please try again later.")
-        
+                setMessage({message:"Error transferring amount. Please try again letter",color:'red'})
             }
         }
+
+        console.log({message})
     }
 
     return <div className="flex justify-center h-screen bg-gray-100">
         <div className="h-full flex flex-col justify-center">
             <div className="border h-min text-card-foreground max-w-md p-4 space-y-8 w-96 bg-white rounded-lg shadow-2xl shadow-green-950">
                 <div className="flex flex-col space-y-1.5 p-6  ">
-                    {!errorMessage && (
-                        <div className="text-green-600 text-center font-mono text-lg antialiased hover:subpixel-antialiased font-semibold">
-                            Amount Transfered correctly
+                    
+                        <div className={`text-${message.color}-600 text-center font-mono text-lg antialiased hover:subpixel-antialiased font-semibold`}>
+                    {message.message}
                         </div>
-                    )}
-
-                    {errorMessage && (
-                        <div className="text-red-600 text-center font-mono text-lg antialiased hover:subpixel-antialiased font-semibold">
-                            {errorMessage}
-                        </div>
-                    )}
-                            
 
                     <div className="text-3xl font-bold text-center">
                         Send money
@@ -63,7 +55,7 @@ export const SendMoney = ()=>{
                                     {name[0].toUpperCase()}
                                 </span>
                             </div>
-                            <h3 className="text-2xl font-semibold">{name}</h3>
+                            <h3 className="text-2xl font-semibold">{name ? name.charAt(0).toUpperCase() + name.slice(1) : ''}</h3>
                         </div>
                         <div className="space-y-4">
                             <div className="space-y-2">

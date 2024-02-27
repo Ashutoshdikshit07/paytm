@@ -9,7 +9,7 @@ export const Users = ()=>{
 
     useEffect(()=>{
         const fetchData = async ()=>{
-            const response = await axios.get("http://192.168.1.2:3000/api/v1/user/bulk?filter="+filter)
+            const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter)
             setUsers(response.data.user)
         }
         fetchData()
