@@ -1,6 +1,8 @@
 import { useSearchParams } from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
+import { AppBar } from "../components/AppBar"
+
 
 export const SendMoney = ()=>{
 
@@ -35,13 +37,16 @@ export const SendMoney = ()=>{
         console.log({message})
     }
 
-    return <div className="flex justify-center h-screen bg-gray-100">
+    return <div><AppBar />
+    <div className="flex justify-center h-screen bg-gray-100">
+        
         <div className="h-full flex flex-col justify-center">
             <div className="border h-min text-card-foreground max-w-md p-4 space-y-8 w-96 bg-white rounded-lg shadow-2xl shadow-green-950">
                 <div className="flex flex-col space-y-1.5 p-6  ">
-                    
-                        <div className={`text-${message.color}-600 text-center font-mono text-lg antialiased hover:subpixel-antialiased font-semibold`}>
-                    {message.message}
+                        <div className="text-center font-mono text-lg antialiased hover:subpixel-antialiased font-semibold">
+                            <div className={message.color==="green"? "text-green-600":"text-red-600"}>
+                                {message.message}
+                            </div>
                         </div>
 
                     <div className="text-3xl font-bold text-center">
@@ -74,5 +79,6 @@ export const SendMoney = ()=>{
                 </div>
             </div>
         </div>
+    </div>
     </div>
 }
