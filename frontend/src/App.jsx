@@ -8,7 +8,6 @@ import {Routes,BrowserRouter, Route} from 'react-router-dom'
 function App() {
   return (
     <div>
-      <h1>asdasd</h1>
     <BrowserRouter>
       <Routes>
         
