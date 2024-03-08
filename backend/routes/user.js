@@ -107,6 +107,12 @@ router.post("/signin", async (req, res)=>{
 	        token: token
         })
     }
+    else{
+        return res.status(411).json({
+            message: "Incorrect inputs"
+        })
+    }
+
     
 })
 
