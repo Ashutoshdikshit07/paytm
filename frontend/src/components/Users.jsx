@@ -3,21 +3,36 @@ import {Button} from "./Button"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useDebounce } from "../hooks/Search"
+import { useLoadingText } from "../hooks/LoadingText"
 
 export const Users = ()=>{
     const [users,setUsers] = useState([])
     const [filter,setFilter] = useState("")
+    const {loading,showLoading,hideLoading} = useLoadingText()
     const debouncedValue = useDebounce(filter,500)
 
     useEffect(()=>{
 
         const fetchData = async ()=>{
-            console.log("backend-Request called")
+            // Showing a loading text until the data is fetched from the backend
+            showLoading()
             const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter)
             setUsers(response.data.user)
+            // Once the data is fetched loading... page is hidden
+            hideLoading()
         }
+      
+        
         fetchData()
+
+
     },[debouncedValue])
+
+
+
+    if(loading){
+        return <div className="flex font-bold mt-6 text-lg">Loading data...</div>
+    }
 
     return <>
         <div className="font-bold mt-6 text-lg">
