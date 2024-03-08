@@ -2,20 +2,22 @@ import { useEffect, useState } from "react"
 import {Button} from "./Button"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { useDebounce } from "../hooks/Search"
 
 export const Users = ()=>{
     const [users,setUsers] = useState([])
     const [filter,setFilter] = useState("")
+    const debouncedValue = useDebounce(filter,500)
 
     useEffect(()=>{
+
         const fetchData = async ()=>{
+            console.log("backend-Request called")
             const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter)
             setUsers(response.data.user)
         }
         fetchData()
-    },[filter])
-
-    
+    },[debouncedValue])
 
     return <>
         <div className="font-bold mt-6 text-lg">
