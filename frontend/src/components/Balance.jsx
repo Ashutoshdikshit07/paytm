@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react"
 import axios from "axios"
 
-export const Balance =({value})=>{
+export const Balance =()=>{
     const [ balance,setBalance] = useState()
     useEffect(()=>{
         const fetchData = async ()=>{
