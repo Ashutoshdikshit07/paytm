@@ -11,24 +11,24 @@ export const Users = ()=>{
     const {loading,showLoading,hideLoading} = useLoadingText()
     const debouncedValue = useDebounce(filter,500)
 
+
+
     useEffect(()=>{
 
         const fetchData = async ()=>{
             // Showing a loading text until the data is fetched from the backend
             showLoading()
-            const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter)
+            const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter,{
+                headers:{
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
             setUsers(response.data.user)
             // Once the data is fetched loading... page is hidden
             hideLoading()
         }
-      
-        
         fetchData()
-
-
     },[debouncedValue])
-
-
 
     if(loading){
         return <div className="flex font-bold mt-6 text-lg">Loading data...</div>
@@ -49,6 +49,7 @@ export const Users = ()=>{
 
     </>
 }
+
 
 function User({user}){
     const navigate = useNavigate()
