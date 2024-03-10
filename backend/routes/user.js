@@ -166,6 +166,19 @@ router.get("/bulk",authMiddleware, async (req,res)=>{
     })
 })
 
+router.get("/getUser",authMiddleware,async(req,res)=>{
+    console.log("user ID: ",req.userId)
+    const user = await User.findOne({
+         _id: req.userId,
+    })
+    if(!user){
+        return res.status(404).json({
+        message:"Incorrect id :("
+        })
+    }
+
+    res.status(200).json(user)
+})
 
 
 // SELECT * FROM users  WHERE name LIKE '%m%'
