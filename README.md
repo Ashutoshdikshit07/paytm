@@ -156,7 +156,6 @@ Send authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI
 
 
 
-
-
-
-
+### Wiring up the backend calls
+ 
+ Used axios to call to the backend servers
