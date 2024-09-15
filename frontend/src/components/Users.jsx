@@ -18,17 +18,31 @@ export const Users = ()=>{
         const fetchData = async ()=>{
             // Showing a loading text until the data is fetched from the backend
             showLoading()
-            const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter,{
-                headers:{
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            })
+            // const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+filter,{
+            //     headers:{
+            //         Authorization: "Bearer " + localStorage.getItem("token")
+            //     }
+            // })
+
+            const response = await axios.get(`http://localhost:3000/api/v1/user/bulk`, {
+                params: debouncedValue ? { filter: debouncedValue } : {},
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+            });
             setUsers(response.data.user)
             // Once the data is fetched loading... page is hidden
             hideLoading()
         }
         fetchData()
     },[debouncedValue])
+
+    // if(debouncedValue){
+    //     fetchData()
+    // }
+    // else{
+    //     fetchData([])
+    // }
 
     if(loading){
         return <div className="flex font-bold mt-6 text-lg">Loading data...</div>
@@ -39,7 +53,7 @@ export const Users = ()=>{
             Users
         </div>
         <div className="my-2">
-            <input onChange={(e)=>{
+            <input value={filter} onChange={(e)=>{
                 setFilter(e.target.value)}
             } type="text" placeholder="Search users..." className="w-full px-2 py-2 border rounded border-slate-200"></input>
         </div>
